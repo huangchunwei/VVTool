@@ -1,11 +1,26 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
+
+
+
+    <declare-styleable name="CarouselView">
+        <attr name="indicator_space" format="dimension"/>
+        <attr name="indicator_margin_right" format="dimension"/>
+        <attr name="bottom_bar_height" format="dimension"/>
+        <attr name="pic_desc_margin_left" format="dimension"/>
+        <attr name="bottom_bar_margin_bottom" format="dimension"/>
+        <attr name="pic_desc_text_size" format="dimension"/>
+        <attr name="pic_desc_text_color" format="color"/>
+        <attr name="bottom_bar_background_color" format="color"/>
+        <attr name="auto_carousel_timeMS" format="integer"/>
+    </declare-styleable>
 
 </resources>
