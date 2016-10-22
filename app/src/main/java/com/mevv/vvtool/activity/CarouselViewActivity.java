@@ -1,13 +1,16 @@
 package com.mevv.vvtool.activity;
 
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mevv.vvtool.MainActivity;
 import com.mevv.vvtool.R;
 import com.mevv.vvtool.base.BaseActivity;
 import com.mevv.vvtool.util.SceneManager;
+import com.mevv.vvtool.util.TipUtil;
 import com.mevv.vvtool.widget.newcarousel.CarouselView;
 
 import java.util.ArrayList;
@@ -38,12 +41,23 @@ public class CarouselViewActivity extends BaseActivity {
     @Override
     public void init() {
         mCarouselView = (CarouselView) findViewById(R.id.carouselView);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        TextView title = (TextView) findViewById(R.id.title_text);
+        title.setText("轮播图");
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         mBannerInfos = new ArrayList<>();
         CarouselView.BannerInfo info;
         for (int i = 0; i < 5; i++) {
             info = new CarouselView.BannerInfo();
             info.img = imageUris[i];
-            info.name = "" + i;
+            info.name = "测试" + i;
             mBannerInfos.add(info);
         }
         mCarouselView.setCarouselData(mBannerInfos);
@@ -51,6 +65,13 @@ public class CarouselViewActivity extends BaseActivity {
             @Override
             public void onPicInit(ImageView imageView, String url, int position) {
                 Glide.with(CarouselViewActivity.this).load(url).into(imageView);
+            }
+        });
+
+        mCarouselView.setOnCarouselClickListener(new CarouselView.OnCarouselClickListener() {
+            @Override
+            public void onCarouselClick(CarouselView.BannerInfo bannerInfo, int position) {
+                TipUtil.showToast(CarouselViewActivity.this, "位置:"+position);
             }
         });
     }

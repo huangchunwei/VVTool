@@ -3,37 +3,29 @@ package com.mevv.vvtool.base;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
 import com.mevv.vvtool.R;
 import com.mevv.vvtool.util.ActManager;
 
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
 /**
- * Created by VV on 2016/10/21.
+ * Created by VV on 2016/10/22.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
-    protected final String TAG = this.getClass().getSimpleName();
-    protected Context mContext;
-//    private Unbinder mUnbinder;
+public abstract class BaseSwipebackActivity extends SwipeBackActivity {
+    private SwipeBackLayout mSwipeBackLayout;
+    private Context mContext;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActManager.getInstances().add(this);
-        // API 19开始，安卓支持沉浸式项栏
-       /* if (android.os.Build.VERSION.SDK_INT >= 19) {
-            // 为适配沉浸式顶栏,在写XML布局时,在顶部的控件加上这两个属生
-            // android:fitsSystemWindows="true"
-            // android:clipToPadding="true"
-            // 透明状态栏
-            getWindow().addFlags(
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            // 透明导航栏不要打开,用虚拟导航按钮的手机会有问题
-            // getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        }*/
+        mSwipeBackLayout = getSwipeBackLayout();
+        // 设置滑动方向，可设置EDGE_LEFT, EDGE_RIGHT, EDGE_ALL,EDGE_BOTTOM
+        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
         //不能竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         this.mContext = this;
@@ -51,7 +43,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void getIntentData() {
 
     }
-
 
     @Override
     public void onBackPressed() {
@@ -81,12 +72,5 @@ public abstract class BaseActivity extends AppCompatActivity {
         getWindow().setAttributes(params);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-//        if (mUnbinder != null)
-//            mUnbinder.unbind();
-//        EventBus.getDefault().unregister(this);
-    }
 }
+

@@ -4,6 +4,8 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+    <include layout="@layout/toolbar"/>
+
     <com.mevv.vvtool.widget.newcarousel.CarouselView
         android:id="@+id/carouselView"
         android:layout_width="match_parent"

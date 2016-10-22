@@ -21,6 +21,8 @@
 
         <!--轮播图-->
         <activity android:name=".activity.CarouselViewActivity"/>
+        <!--动态设置全屏-->
+        <activity android:name=".activity.DynamicFullScreenActivity"/>
 
     </application>
 
